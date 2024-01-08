@@ -1,10 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const issuesController = require('../controllers/issuesController')
+const authController = require('../controllers/authController')
 const errorHandler = require('../middleware/errorHandler')
 const passport = require("../middleware/authMiddleware");
 
-router.post('/',passport.authenticate("jwt", { session: false }), issuesController.createIssue)
+
+
+router.post('/register', authController.register)
+router.post('/login', passport.authenticate('local', { session: false }), authController.login)
 
 router.use(errorHandler);
 

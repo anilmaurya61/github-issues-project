@@ -3,7 +3,7 @@ const router = express.Router();
 const Issue = require('../models/issues');
 const { Octokit } = require('@octokit/core');
 const { getIssuesRepo, updateIssueRepo } = require('../services/gitHubApi')
-const { syncIssues, getIssuesDb, updateIssueDb } = require('../services/mongoos')
+const { syncIssues, getIssuesDb, updateIssueDb } = require('../services/mongoosServices')
 
 const { ACCESS_TOKEN, OWNER, REPO, BATCH_SIZE } = process.env;
 
@@ -11,7 +11,7 @@ const createIssue = async (req, res, next) => {
     try {
         const issuesData = await getIssuesRepo();
         await syncIssues(issuesData)
-        res.status(200).send(issuesData);
+        res.status(201).send(issuesData);
     }
     catch (error) {
         next(error);
@@ -39,7 +39,7 @@ const updateIssue = async (req, res, next) => {
     try {
         await updateIssueRepo(issueNumber, { 'title': title, 'body': body })
         await updateIssueDb(issueNumber, { 'title': title, 'body': body })
-        res.status(200).json({ "Status": "Update issue successfully" });
+        res.status(200).send("Update issue successfully");
     }
     catch (error) {
         next(error);

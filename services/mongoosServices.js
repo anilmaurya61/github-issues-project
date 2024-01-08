@@ -31,17 +31,18 @@ async function getIssuesDb(issueId) {
 
 async function updateIssueDb(issueId, updatedIssueData) {
     try {
-      const updatedIssue = await Issue.findOneAndUpdate(
-        { number: issueId },
-        updatedIssueData,
-        { new: true }
-      );
-      return updatedIssue;
+        const updatedIssue = await Issue.findOneAndUpdate(
+            { number: issueId },
+            updatedIssueData,
+            { new: true }
+        );
+        return updatedIssue;
     } catch (error) {
-      logger.error("Error Updating DataBase:", error);
-      throw error;
+        logger.error("Error Updating DataBase:", error);
+        throw error;
     }
-  }
+}
+
 
 module.exports = {
     syncIssues,

@@ -12,6 +12,7 @@ app.use(express.json());
 
 app.use('/sync', require('./routes/syncRoutes'))
 app.use('/issues', require('./routes/issuesRoutes'))
+app.use('/user', require('./routes/userRoutes'))
 
 mongoose.connection.once('open', () => {
     console.log('Connected to MongoDB');
